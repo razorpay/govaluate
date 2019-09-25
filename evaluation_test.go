@@ -507,6 +507,12 @@ func TestNoParameterEvaluation(test *testing.T) {
 		},
 		EvaluationTest{
 
+			Name:     "Array membership literal with inversion (NOT IN)",
+			Input:    "1 not_in (1, 2, 3)",
+			Expected: false,
+		},
+		EvaluationTest{
+
 			Name:     "Array membership literals (Contains)",
 			Input:    "(1,2,3) contains 1",
 			Expected: true,
@@ -515,6 +521,12 @@ func TestNoParameterEvaluation(test *testing.T) {
 
 			Name:     "Array membership literal with inversion (Contains)",
 			Input:    "!((1,2,3) contains 1)",
+			Expected: false,
+		},
+		EvaluationTest{
+
+			Name:     "Array membership literal with inversion (Not Contains)",
+			Input:    "(1,2,3) not_contains 1",
 			Expected: false,
 		},
 		EvaluationTest{

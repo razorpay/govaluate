@@ -943,6 +943,70 @@ func TestComparatorParsing(test *testing.T) {
 		},
 		TokenParsingTest{
 
+			Name:  "Array membership lowercase (not_in)",
+			Input: "'foo' not_in ('foo', 'bar')",
+			Expected: []ExpressionToken{
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "foo",
+				},
+				ExpressionToken{
+					Kind:  COMPARATOR,
+					Value: "not_in",
+				},
+				ExpressionToken{
+					Kind: CLAUSE,
+				},
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "foo",
+				},
+				ExpressionToken{
+					Kind: SEPARATOR,
+				},
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "bar",
+				},
+				ExpressionToken{
+					Kind: CLAUSE_CLOSE,
+				},
+			},
+		},
+		TokenParsingTest{
+
+			Name:  "Array membership uppercase",
+			Input: "'foo' NOT_IN ('foo', 'bar')",
+			Expected: []ExpressionToken{
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "foo",
+				},
+				ExpressionToken{
+					Kind:  COMPARATOR,
+					Value: "not_in",
+				},
+				ExpressionToken{
+					Kind: CLAUSE,
+				},
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "foo",
+				},
+				ExpressionToken{
+					Kind: SEPARATOR,
+				},
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "bar",
+				},
+				ExpressionToken{
+					Kind: CLAUSE_CLOSE,
+				},
+			},
+		},
+		TokenParsingTest{
+
 			Name:  "Array membership lowercase (Contains)",
 			Input: "('foo', 'bar') contains 'foo'",
 			Expected: []ExpressionToken{
@@ -998,6 +1062,70 @@ func TestComparatorParsing(test *testing.T) {
 				ExpressionToken{
 					Kind:  COMPARATOR,
 					Value: "contains",
+				},
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "foo",
+				},
+			},
+		},
+		TokenParsingTest{
+
+			Name:  "Array membership lowercase (Contains)",
+			Input: "('foo', 'bar') not_contains 'foo'",
+			Expected: []ExpressionToken{
+				ExpressionToken{
+					Kind: CLAUSE,
+				},
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "foo",
+				},
+				ExpressionToken{
+					Kind: SEPARATOR,
+				},
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "bar",
+				},
+				ExpressionToken{
+					Kind: CLAUSE_CLOSE,
+				},
+				ExpressionToken{
+					Kind:  COMPARATOR,
+					Value: "not_contains",
+				},
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "foo",
+				},
+			},
+		},
+		TokenParsingTest{
+
+			Name:  "Array membership uppercase (contains)",
+			Input: "('foo', 'bar') NOT_CONTAINS 'foo'",
+			Expected: []ExpressionToken{
+				ExpressionToken{
+					Kind: CLAUSE,
+				},
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "foo",
+				},
+				ExpressionToken{
+					Kind: SEPARATOR,
+				},
+				ExpressionToken{
+					Kind:  STRING,
+					Value: "bar",
+				},
+				ExpressionToken{
+					Kind: CLAUSE_CLOSE,
+				},
+				ExpressionToken{
+					Kind:  COMPARATOR,
+					Value: "not_contains",
 				},
 				ExpressionToken{
 					Kind:  STRING,

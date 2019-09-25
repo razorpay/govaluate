@@ -166,10 +166,17 @@ func readToken(stream *lexerStream, state lexerState, functions map[string]Expre
 				// force lower case for consistency
 				tokenValue = "in"
 				kind = COMPARATOR
-			}
-			if tokenValue == "contains" || tokenValue == "CONTAINS" {
+			} else if tokenValue == "not_in" || tokenValue == "NOT_IN" {
+
+				tokenValue = "not_in"
+				kind = COMPARATOR
+			} else if tokenValue == "contains" || tokenValue == "CONTAINS" {
 
 				tokenValue = "contains"
+				kind = COMPARATOR
+			} else if tokenValue == "not_contains" || tokenValue == "NOT_CONTAINS" {
+
+				tokenValue = "not_contains"
 				kind = COMPARATOR
 			}
 

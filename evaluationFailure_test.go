@@ -368,6 +368,18 @@ func TestComparatorTyping(test *testing.T) {
 			Input:    "1 in true",
 			Expected: INVALID_COMPARATOR_TYPES,
 		},
+		EvaluationFailureTest{
+
+			Name:     "EQ number to boolean",
+			Input:    "1 == true",
+			Expected: INVALID_COMPARATOR_TYPES,
+		},
+		EvaluationFailureTest{
+			Name:     "NEQ string to number",
+			Input:    "'hello' != 10",
+			Expected: INVALID_COMPARATOR_TYPES,
+		},
+		
 	}
 
 	runEvaluationFailureTests(evaluationTests, test)

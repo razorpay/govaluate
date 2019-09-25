@@ -496,6 +496,13 @@ func comparatorTypeCheck(left interface{}, right interface{}) bool {
 	return false
 }
 
+/*
+	Equality checks should happend between same types
+*/	
+func equalityTypeCheck(left interface{}, right interface{}) bool {
+	return reflect.TypeOf(left) == reflect.TypeOf(right)
+}
+
 func isArray(value interface{}) bool {
 	switch value.(type) {
 	case []interface{}:

@@ -756,6 +756,11 @@ func TestNoParameterEvaluation(test *testing.T) {
 			},
 			Expected: 1.0,
 		},
+		EvaluationTest{
+			Name: "between",
+			Input: "10 between ( 5, 15)",
+			Expected: true,
+		},
 	}
 
 	runEvaluationTests(evaluationTests, test)

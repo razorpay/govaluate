@@ -469,12 +469,21 @@ func betweenStage(left interface{}, right interface{}, parameters Parameters) (i
 
 func startingWithStage(left interface{}, right interface{}, parameters Parameters) (interface{}, error)  {
 
-	return boolIface(strings.HasPrefix(left.(string), right.(string))), nil
+	if isString(left) || isString(right) {
+		return boolIface(strings.HasPrefix(left.(string), right.(string))), nil
+	}
+
+	return boolIface(strings.HasPrefix(fmt.Sprintf("%v", int(left.(float64))), fmt.Sprintf("%v", int(right.(float64))))), nil
+
 }
 
 func endingWithStage(left interface{}, right interface{}, parameters Parameters) (interface{}, error)  {
 
-	return boolIface(strings.HasSuffix(left.(string), right.(string))), nil
+	if isString(left) || isString(right) {
+		return boolIface(strings.HasSuffix(left.(string), right.(string))), nil
+	}
+
+	return boolIface(strings.HasSuffix(fmt.Sprintf("%v", int(left.(float64))), fmt.Sprintf("%v", int(right.(float64))))), nil
 }
 
 //

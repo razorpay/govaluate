@@ -22,6 +22,9 @@ const (
 	NOTIN
 	CONTAINS
 	NOTCONTAINS
+	STARTINGWITH
+	ENDINGWITH
+	BETWEEN
 
 	AND
 	OR
@@ -97,6 +100,12 @@ func findOperatorPrecedenceForSymbol(symbol OperatorSymbol) operatorPrecedence {
 		fallthrough
 	case NOTCONTAINS:
 		fallthrough
+	case STARTINGWITH:
+		fallthrough
+	case ENDINGWITH:
+		fallthrough
+	case BETWEEN:
+		fallthrough
 	case IN:
 		fallthrough
 	case NOTIN:
@@ -168,6 +177,9 @@ var comparatorSymbols = map[string]OperatorSymbol{
 	"not_in":       NOTIN,
 	"contains":     CONTAINS,
 	"not_contains": NOTCONTAINS,
+	"starting_with": STARTINGWITH,
+	"ending_with": ENDINGWITH,
+	"between": BETWEEN,
 }
 
 var logicalSymbols = map[string]OperatorSymbol{
@@ -288,6 +300,12 @@ func (this OperatorSymbol) String() string {
 		return "contains"
 	case NOTCONTAINS:
 		return "not_contains"
+	case STARTINGWITH:
+		return "starting_with"
+	case ENDINGWITH:
+		return "ending_with"
+	case BETWEEN:
+		return "between"
 	case BITWISE_AND:
 		return "&"
 	case BITWISE_OR:

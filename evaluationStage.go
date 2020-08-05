@@ -458,6 +458,25 @@ func notContainsStage(left interface{}, right interface{}, parameters Parameters
 	return true, nil
 }
 
+func betweenStage(left interface{}, right interface{}, parameters Parameters) (interface{}, error) {
+
+	if left.(float64) <= right.([]interface{})[1].(float64) && left.(float64) >= right.([]interface{})[0].(float64) {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+func startingWithStage(left interface{}, right interface{}, parameters Parameters) (interface{}, error)  {
+
+	return boolIface(strings.HasPrefix(left.(string), right.(string))), nil
+}
+
+func endingWithStage(left interface{}, right interface{}, parameters Parameters) (interface{}, error)  {
+
+	return boolIface(strings.HasSuffix(left.(string), right.(string))), nil
+}
+
 //
 
 func isString(value interface{}) bool {
@@ -541,6 +560,16 @@ func isArray(value interface{}) bool {
 	return false
 }
 
+func isArrayOfLen2(value interface{}) bool {
+	switch value.(type) {
+	case []interface{}:
+		if len(value.([]interface{})) == 2 {
+			return true
+		}
+		return false
+	}
+	return false
+}
 /*
 	Converting a boolean to an interface{} requires an allocation.
 	We can use interned bools to avoid this cost.

@@ -569,10 +569,15 @@ func isArray(value interface{}) bool {
 	return false
 }
 
-func isArrayOfLen2(value interface{}) bool {
+func isNumericArrayOfLen2(value interface{}) bool {
 	switch value.(type) {
 	case []interface{}:
 		if len(value.([]interface{})) == 2 {
+			for _, val := range value.([]interface{}) {
+				if !isFloat64(val) {
+					return false
+				}
+			}
 			return true
 		}
 		return false

@@ -508,8 +508,8 @@ func findTypeChecks(symbol OperatorSymbol) typeChecks {
 		}
 	case BETWEEN:
 		return typeChecks{
-			left:     nil,
-			right:    isArrayOfLen2,
+			left:     isFloat64,
+			right:    isNumericArrayOfLen2,
 			combined: nil,
 		}
 	case ENDINGWITH:
@@ -718,6 +718,8 @@ func elideStage(root *evaluationStage) *evaluationStage {
 	case IN:
 		fallthrough
 	case NOTIN:
+		fallthrough
+	case BETWEEN:
 		return root
 	}
 

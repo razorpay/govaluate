@@ -756,6 +756,36 @@ func TestNoParameterEvaluation(test *testing.T) {
 			},
 			Expected: 1.0,
 		},
+		EvaluationTest{
+			Name: "Simple Between True Test",
+			Input: "10 between ( 5, 15)",
+			Expected: true,
+		},
+		EvaluationTest{
+			Name: "Simple Between false Test",
+			Input: "20 between ( 5, 15)",
+			Expected: false,
+		},
+		EvaluationTest{
+			Name: "Simple Starting with True Test",
+			Input: "15091996 starting_with 1509",
+			Expected: true,
+		},
+		EvaluationTest{
+			Name: "Simple Starting with False Test",
+			Input: "15091996 starting_with 1996",
+			Expected: false,
+		},
+		EvaluationTest{
+			Name: "Simple Ending with False Test",
+			Input: "15091996 ending_with 1509",
+			Expected: false,
+		},
+		EvaluationTest{
+			Name: "Simple Ending with True Test",
+			Input: "15091996 ending_with 1996",
+			Expected: true,
+		},
 	}
 
 	runEvaluationTests(evaluationTests, test)

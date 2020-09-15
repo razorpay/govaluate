@@ -178,6 +178,18 @@ func readToken(stream *lexerStream, state lexerState, functions map[string]Expre
 
 				tokenValue = "not_contains"
 				kind = COMPARATOR
+			} else if tokenValue == "starting_with" || tokenValue == "STARTING_WITH" {
+
+				tokenValue = "starting_with"
+				kind = COMPARATOR
+			} else if tokenValue == "ending_with" || tokenValue == "ENDING_WITH" {
+
+				tokenValue = "ending_with"
+				kind = COMPARATOR
+			} else if tokenValue == "between" || tokenValue == "BETWEEN" {
+
+				tokenValue = "between"
+				kind = COMPARATOR
 			}
 
 			// function?

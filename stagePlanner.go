@@ -21,6 +21,9 @@ var stageSymbolMap = map[OperatorSymbol]evaluationOperator{
 	NOTIN:          notInStage,
 	CONTAINS:       containsStage,
 	NOTCONTAINS:    notContainsStage,
+	STARTINGWITH:   startingWithStage,
+	ENDINGWITH:     endingWithStage,
+	BETWEEN:        betweenStage,
 	BITWISE_OR:     bitwiseOrStage,
 	BITWISE_AND:    bitwiseAndStage,
 	BITWISE_XOR:    bitwiseXORStage,
@@ -503,6 +506,18 @@ func findTypeChecks(symbol OperatorSymbol) typeChecks {
 		return typeChecks{
 			left: isArray,
 		}
+	case BETWEEN:
+		return typeChecks{
+			left:     isFloat64,
+			right:    isNumericArrayOfLen2,
+			combined: nil,
+		}
+	case ENDINGWITH:
+		fallthrough
+	case STARTINGWITH:
+		return typeChecks{
+			combined: comparatorTypeCheck,
+		}
 	case BITWISE_LSHIFT:
 		fallthrough
 	case BITWISE_RSHIFT:
@@ -703,6 +718,8 @@ func elideStage(root *evaluationStage) *evaluationStage {
 	case IN:
 		fallthrough
 	case NOTIN:
+		fallthrough
+	case BETWEEN:
 		return root
 	}
 
